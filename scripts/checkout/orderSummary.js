@@ -15,8 +15,8 @@ import {
 import { renderPaymentSummary } from "./paymentSummary.js";
 import isSunSat from "../utils/isWeekend.js";
 export function renderOrderSummary() {
-  let cartHTML = "";
   updateCartQuantity();
+  let cartHTML = "";
   cart.forEach((cartItem) => {
     const productId = cartItem.productId;
     const matchingItem = getProduct(productId);
@@ -26,7 +26,7 @@ export function renderOrderSummary() {
     const deliveryDate = today.add(deliveryOption.deliveryDays, "days");
     const dateString = deliveryDate.format("dddd, MMMM D");
 
-    cartHTML += `<div class="cart-item-container js-cart-item-container-${
+    cartHTML += `<div class="cart-item-container js-cart-item-container js-cart-item-container-${
       matchingItem.id
     }">
           <div class="delivery-date">Delivery date: ${dateString}</div>
@@ -44,7 +44,7 @@ export function renderOrderSummary() {
               <div class="product-price">$${formatCurrency(
                 matchingItem.priceCents
               )}</div>
-              <div class="product-quantity">
+              <div class="product-quantity js-product-quantity-${matchingItem.id}">
                 <span> Quantity: <span class="quantity-label">${
                   cartItem.quantity
                 }</span> </span>
@@ -57,7 +57,7 @@ export function renderOrderSummary() {
                 <span class="save-quantity-link link-primary" data-product-id="${
                   matchingItem.id
                 }">Save</span>
-                <span class="delete-quantity-link link-primary js-delete-link" data-product-id="${productId}"> Delete </span>
+                <span class="delete-quantity-link link-primary js-delete-link js-delete-link-${productId}" data-product-id="${productId}"> Delete </span>
               </div>
             </div>
 
@@ -150,6 +150,7 @@ export function renderOrderSummary() {
       updateQuantity(productId, newQuantity);
       renderOrderSummary();
       renderPaymentSummary();
+      updateCartQuantity();
     });
   });
 
@@ -157,11 +158,11 @@ export function renderOrderSummary() {
     link.addEventListener("click", () => {
       const productId = link.dataset.productId;
       deleteCartItem(productId);
-      renderPaymentSummary();
       let container = document.querySelector(
         `.js-cart-item-container-${productId}`
       );
       renderOrderSummary();
+      renderPaymentSummary();
       updateCartQuantity();
     });
   });

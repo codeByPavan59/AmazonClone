@@ -2,12 +2,10 @@ import { cart, addToCart } from "../data/cart.js";
 // import * as cartModule from '../data/cart.js';
 // const cart = cartModule.cart;
 // let addToCart = cartModule.addToCart;
-import { products, loadProductsFetch } from "../data/products.js";
+import { products, loadProducts } from "../data/products.js";
 import { formatCurrency } from "./utils/money.js";
 
-loadProductsFetch().then(() => {
-  renderProductsGrid();
-});
+loadProducts(renderProductsGrid);
 
 function renderProductsGrid() {
   updateCartQuantity();

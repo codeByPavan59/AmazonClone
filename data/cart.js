@@ -76,6 +76,13 @@ export function updateQuantity(productId, newQuantity) {
   saveToStorage();
 }
 
+export async function loadCartFetch() {
+  const response = await fetch('https://supersimplebackend.dev/cart');
+  const cart = await response.text();
+  console.log(cart);
+
+}
+
 export function loadCart(fun) {
   const xhr = new XMLHttpRequest();
 

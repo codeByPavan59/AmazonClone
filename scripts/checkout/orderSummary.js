@@ -14,6 +14,7 @@ import {
 } from "../../data/deliveryOptions.js";
 import { renderPaymentSummary } from "./paymentSummary.js";
 import isSunSat from "../utils/isWeekend.js";
+
 export function renderOrderSummary() {
   updateCartQuantity();
   let cartHTML = "";
